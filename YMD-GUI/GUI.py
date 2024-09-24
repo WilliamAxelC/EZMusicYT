@@ -14,6 +14,7 @@ import re
 #https://stackoverflow.com/questions/17698040/youtube-api-v3-where-can-i-find-a-list-of-each-videocategoryid
 #progress bar [DONE]
 #async, stop tkinter freezing []
+#Add MP4 TAGGING []
 #input output dir [DONE]
 #fix youtube link detection [DONE]
 
@@ -61,7 +62,7 @@ class YouTubeDownloaderApp(ctk.CTk):
         self.download_type_option = ctk.CTkOptionMenu(self.search_frame, variable=self.download_type_var, values=["mp3", "mp4"])
         self.download_type_option.grid(pady=10, padx=(10, 5), row=2, column=2, columnspan=1, sticky="ew")
 
-        self.song_release_button = ctk.CTkCheckBox(self.search_frame, text="Get Release?",
+        self.song_release_button = ctk.CTkCheckBox(self.search_frame, text="Query from YT Music?",
                                      variable=self.song_release_var, onvalue="True", offvalue="False", command=self.update_song_release_var)
         self.song_release_button.grid(pady=10, padx=(10, 5), row=2, column=0, columnspan=1, sticky="ew")
 

@@ -10,3 +10,15 @@ def search_youtube(query, api_key, max_results=10):
     else:
         print(f"Failed to fetch search results: {response.status_code}")
         return []
+
+def get_song_release(video_title, video_author, api_key, max_results=10):
+    query = f"{video_title} {video_author}"
+    search_url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults={max_results}&q={urllib.parse.quote(query)}&type=video&videoCategoryId=10&key={api_key}"
+    
+    response = requests.get(search_url)
+    if response.status_code == 200:
+        results = response.json().get('items', [])
+        return [f"https://www.youtube.com/watch?v={item['id']['videoId']}" for item in results]
+    else:
+        print(f"Failed to fetch search results: {response.status_code}")
+        return []

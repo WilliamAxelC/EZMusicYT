@@ -22,13 +22,14 @@ def process_videos(video_urls):
     
     return df
 
-def start_download(download_type, video_info, output_path='./output'):
-    for index, row in video_info.iterrows():
-        row['thumbnail_path'], row['directory'] = dh.download_media(row["thumbnail_link"], row["link"], row['title'], download_type)
-        if download_type == 'mp3':
-            st.tag_song(row["title"], row["author"], row["thumbnail_path"], row['directory'])
-            fh.move_file(row['directory'], f"{output_path}/{row['title']}.{download_type}")
-        elif download_type == 'mp4':
-            fh.move_file(row['directory'], f"{output_path}/{row['title']}.{download_type}")
+def start_download(download_type, video_title, video_thumbnail_link, video_link, video_author, output_path='./output'):
+    thumbnail_path, directory = dh.download_media(video_thumbnail_link, video_link, video_title, download_type)
+    if download_type == 'mp3':
+        st.tag_song(video_title, video_author, thumbnail_path, directory)
+        fh.move_file(directory, f"{output_path}/{video_title}.{download_type}")
+    elif download_type == 'mp4':
+        fh.move_file(directory, f"{output_path}/{video_title}.{download_type}")
 
     # print(df)
+
+
